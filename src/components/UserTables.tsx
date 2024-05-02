@@ -34,7 +34,7 @@ const UsersTable: React.FC = () => {
 
 	return (
 		<>
-			<Table columns={columns} dataSource={products} />
+			<Table columns={columns} dataSource={products} size={'large'} style={{ width: '100%' }}/>
 		</>
 	);
 };
