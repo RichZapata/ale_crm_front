@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Space, Row, Card, Button, Typography } from "antd";
 import { Link, Outlet, useOutlet } from "react-router-dom";
 import { toTitleCase } from "../../utils/stringFormater";
+import { useHeaderTitle } from "../../hooks/useHeaderTitle";
 
 interface Collection {
 	id: number;
@@ -15,6 +16,11 @@ interface CollectionsProps {}
 const Collections: React.FC<CollectionsProps> = () => {
 	
 	const outlet = useOutlet();
+  const { setTitle } = useHeaderTitle(); // Obtenemos la función setTitle del hook useHeaderTitle
+
+  useEffect(() => {
+    setTitle("Collections"); // Establecemos el título cuando se monta el componente
+  }, []); // El array vacío asegura que este efecto solo se ejecute una vez
 	const collectionsData: Collection[] = [
 		{
 			id: 1,
