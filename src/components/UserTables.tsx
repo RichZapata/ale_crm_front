@@ -1,19 +1,17 @@
-import { Button, Col, Modal, Row, Table } from "antd";
+import { Table } from "antd";
 import { useEffect, useState } from "react";
-import { Product } from "../models/product";
-import { getProducts } from "../services/product";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { User } from "../models/user";
+import { getUsers } from "../services/users";
 
 const UsersTable: React.FC = () => {
-	const [products, setProducts] = useState<Product[]>([]);
-  const { confirm } = Modal;
+	const [users, setUsers] = useState<User[]>([]);
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const products = await getProducts();
-				setProducts(products);
+				const users = await getUsers();
+				setUsers(users);
 			} catch (error) {
-				console.error("Error fetching products:", error);
+				console.error("Error fetching users:", error);
 			}
 		};
 
@@ -27,47 +25,27 @@ const UsersTable: React.FC = () => {
 			key: "name",
 		},
 		{
-			title: "Price",
-			dataIndex: "price",
-			key: "price",
-		},
-    {
-			title: "Name",
-			dataIndex: "name",
-			key: "name",
+			title: "Last Name",
+			dataIndex: "lastName",
+			key: "lastName",
 		},
 		{
-			title: "Price",
-			dataIndex: "price",
-			key: "price",
+			title: "Date of Birth",
+			dataIndex: "dateOfBirth",
+			key: "dateOfBirth",
+			render: (date: Date | null) => (date ? new Date(date).toLocaleDateString() : ""),
 		},
 	];
 
-  const deleteElement = () => {
-    confirm({
-      title: 'Do you want to delete these items?',
-      icon: <ExclamationCircleFilled />,
-      content: 'When clicked the OK button, this dialog will be closed after 1 second',
-      onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
-      },
-      onCancel() {},
-    });
-  };
-
 	return (
 		<>
-
-
-        <Table
-          columns={columns}
-          dataSource={products}
-          size="large"
-          style={{ width: '100%' }}
-        />
-    </>
+			<Table
+				columns={columns}
+				dataSource={users}
+				size="large"
+				style={{ width: "100%" }}
+			/>
+		</>
 	);
 };
 

@@ -1,10 +1,10 @@
 import React from "react";
-import { Layout, Typography } from "antd";
+import { ConfigProvider, Layout, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
-import MenuSidebar from "./components/MenuSidebar";
 import { HeaderTitleProvider, useHeaderTitle } from "./hooks/useHeaderTitle";
+import MenuSidebar from "./Components/MenuSidebar";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +18,23 @@ const AppLayout: React.FC = () => {
   const { title } = useHeaderTitle();
 
   return (
+	<ConfigProvider
+			theme={{
+				token: {
+					colorPrimary: "#ffafb8",
+					colorInfo: "#ffafb8",
+					colorLink: "#fd7382",
+					colorBgBase: "#fdf3f3",
+					fontSize: 16,
+					sizeStep: 4,
+				},
+				components: {
+					"Button": {
+					  "colorPrimary": "rgb(255, 125, 140)"
+					}
+				  }
+			}}
+		>
     <Layout>
       <Sider width={"25%"}>
         <MenuSidebar />
@@ -39,6 +56,7 @@ const AppLayout: React.FC = () => {
         <Footer style={{ textAlign: "center" }}>Footer</Footer>
       </Layout>
     </Layout>
+	</ConfigProvider>
   );
 };
 
